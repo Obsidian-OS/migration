@@ -21,6 +21,7 @@ if bootctl status &>/dev/null; then
     echo "[*] Installing GRUB..."
     "$grub_exe" --efi-directory=/boot --bootloader-id=ObsidianOSslot$(get_current_slot | tr '[:lower:]' '[:upper:]')
     [[ $? == 0 ]] && echo "[+] GRUB installed" || (echo "[!] Failed to install GRUB! Aborting. (YOU DONT HAVE SYSTEMD-BOOT EITHER NOW!)" && exit 1)
+    sed -i 's|^#*GRUB_DISABLE_OS_PROBER=.*|GRUB_DISABLE_OS_PROBER=false|' /etc/default/grub
     "$grub_exe_mkconfig" -o /boot/grub/grub.cfg
     [[ $? == 0 ]] && echo "[+] Migration Done!!!" || (echo "[!] Failed to generate GRUB config!" && exit 1)
     echo "[?] Here's your new status:"
