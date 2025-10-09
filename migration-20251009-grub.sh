@@ -25,7 +25,7 @@ if bootctl status &>/dev/null; then
     [[ $? == 0 ]] && echo "[+] Migration Done!!!" || (echo "[!] Failed to generate GRUB config!" && exit 1)
     echo "[?] Here's your new status:"
     $CTLPATH status
-    echo "[+] Migration completed."
+    echo "[+] Migration completed. Reboot recommended."
     exit
 else
     echo "[!] Bootloader is not systemd-boot. No need to migrate."
