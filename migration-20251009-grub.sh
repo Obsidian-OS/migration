@@ -29,5 +29,5 @@ if bootctl status &>/dev/null; then
     exit
 else
     echo "[!] Bootloader is not systemd-boot. No need to migrate."
-    exit
+    exit 1
 fi
