@@ -4,11 +4,11 @@ A repo for ObsidianOS Migrations.
 ## Usage
 
 ```sh
-sudo obsidianctl migrate run 0  # run migration script 0
+sudo obsidianctl migrate run 20251009-hello-world  # run migration script 20251009-hello-world
 ```
 
 ```sh
-sudo obsidianctl migrate rollback 0  # run migration rollback 0 (if exists)
+sudo obsidianctl migrate rollback 20251009-hello-world  # run migration rollback 20251009-hello-world (if exists)
 ```
 
 ```sh
