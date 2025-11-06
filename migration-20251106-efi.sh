@@ -26,6 +26,12 @@ if [[ ! -d /efi || -z "$(ls -A /efi 2>/dev/null)" ]]; then
     echo "[*] Editing mountpoint in /etc/fstab"
     sed -i.bak '/[[:space:]]\/boot[[:space:]]/s/\/boot/\/efi/' /etc/fstab
     [[ $? == 0 ]] && echo "[+] Edited mountpoint." || (echo "[!!!] Failed to edit mountpoint! Aborting." && exit 1)
+    mount /dev/disk/by-label/root_$(get_current_slot) /mnt/root_migration --mkdir
+    [[ $? == 0 ]] && echo "[+] Edited mountpoint." || (echo "[!!!] Failed to edit mountpoint! Aborting." && exit 1)
+    sed -i.bak '/[[:space:]]\/boot[[:space:]]/s/\/boot/\/efi/' /mnt/root_migration/etc/fstab
+    [[ $? == 0 ]] && echo "[+] Edited mountpoint." || (echo "[!!!] Failed to edit mountpoint! Aborting." && exit 1)
+    umount /mnt/root_migration
+    [[ $? == 0 ]] && echo "[+] Edited mountpoint." || (echo "[!!!] Failed to edit mountpoint! Aborting." && exit 1)
     echo "[*] Mounting all entries..."
     mount -a
     [[ $? == 0 ]] && echo "[+] Mounted." || (echo "[!!!] Failed to mount entries (CRITICAL!!!)" && exit 1)
