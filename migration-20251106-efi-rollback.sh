@@ -24,7 +24,7 @@ if mountpoint -q /efi; then
     echo "[*] Reverting /etc/fstab mountpoint..."
     sed -i.bak '/[[:space:]]\/efi[[:space:]]/s/\/efi/\/boot/' /etc/fstab || { echo "[!!!] Failed to edit fstab"; exit 1; }
     echo "[*] Mounting all entries..."
-    mount -A || { echo "[!!!] Failed to mount entries"; exit 1; }
+    mount -a || { echo "[!!!] Failed to mount entries"; exit 1; }
     echo "[*] Restoring old kernel files..."
     mv /boot_new/* /boot/ || { echo "[!!!] Failed to move files back to /boot"; exit 1; }
     rmdir /boot_new
