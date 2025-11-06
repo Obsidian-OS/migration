@@ -27,7 +27,7 @@ if [[ ! -d /efi || -z "$(ls -A /efi 2>/dev/null)" ]]; then
     sed -i.bak '/[[:space:]]\/boot[[:space:]]/s/\/boot/\/efi/' /etc/fstab
     [[ $? == 0 ]] && echo "[+] Edited mountpoint." || (echo "[!!!] Failed to edit mountpoint! Aborting." && exit 1)
     echo "[*] Mounting all entries..."
-    mount -A
+    mount -a
     [[ $? == 0 ]] && echo "[+] Mounted." || (echo "[!!!] Failed to mount entries (CRITICAL!!!)" && exit 1)
     echo "[*] Moving old partition files back..."
     mkdir -p /boot
