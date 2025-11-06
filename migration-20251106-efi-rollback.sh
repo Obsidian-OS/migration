@@ -23,6 +23,8 @@ if mountpoint -q /efi; then
     umount /efi || { echo "[!!!] Failed to unmount /efi"; exit 1; }
     echo "[*] Reverting /etc/fstab mountpoint..."
     sed -i.bak '/[[:space:]]\/efi[[:space:]]/s/\/efi/\/boot/' /etc/fstab || { echo "[!!!] Failed to edit fstab"; exit 1; }
+    mount /dev/disk/by-label/root_$(get_current_slot) /mnt/root_rollback --mkdir || { echo "[!!!] Failed mount root"; exit 1; }
+    sed -i.bak '/[[:space:]]\/efi[[:space:]]/s/\/efi/\/boot/' /mnt/root_rollback/etc/fstab || { echo "[!!!] Failed to edit fstab on mounted root"; exit 1; }
     echo "[*] Mounting all entries..."
     mount -a || { echo "[!!!] Failed to mount entries"; exit 1; }
     echo "[*] Restoring old kernel files..."
