@@ -27,6 +27,3 @@ echo "[*] Migrating from /efi/grub -> /boot/grub"
     $CTLPATH status
     echo "[+] Migration completed. Reboot recommended."
     exit
-else
-    echo "[!] Already using the new /boot/grub config path. No need to migrate."
-    exit 1
