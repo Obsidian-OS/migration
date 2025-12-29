@@ -14,7 +14,7 @@ get_current_slot() {
     echo unknown
 }
 echo "[*] Migrating from /efi/grub -> /boot/grub"
-if [[ ! -d /boot/grub ]]; then
+
     echo "[?] Currently using /efi/grub. Continuing..."
     echo "[*] Removing old GRUB config..."
     mkdir -p /boot/grub
@@ -30,4 +30,3 @@ if [[ ! -d /boot/grub ]]; then
 else
     echo "[!] Already using the new /boot/grub config path. No need to migrate."
     exit 1
-fi
