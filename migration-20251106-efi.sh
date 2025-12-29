@@ -47,7 +47,8 @@ if [[ ! -d /efi || -z "$(ls -A /efi 2>/dev/null)" ]]; then
     "$grub_exe" --efi-directory=/efi --target=x86_64-efi --bootloader-id=ObsidianOSslot$(get_current_slot | tr '[:lower:]' '[:upper:]')
     [[ $? == 0 ]] && echo "[+] GRUB reinstalled" || (echo "[!!!] Failed to reinstall GRUB! Aborting. (CRITICAL!!!)" && exit 1)
     sed -i 's|^#*GRUB_DISABLE_OS_PROBER=.*|GRUB_DISABLE_OS_PROBER=false|' /etc/default/grub
-    rm -f /boot/grub/grub.cfg || true
+    rm -rf /boot/grub || true
+    mkdir -p /boot/grub
     "$grub_exe_mkconfig" -o /boot/grub/grub.cfg
     [[ $? == 0 ]] && echo "[+] Migration Done!!!" || (echo "[!!!] Failed to generate GRUB config!" && exit 1)
     echo "[?] Here's your new status:"
