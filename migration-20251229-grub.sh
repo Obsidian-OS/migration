@@ -14,16 +14,15 @@ get_current_slot() {
     echo unknown
 }
 echo "[*] Migrating from /efi/grub -> /boot/grub"
-
-    echo "[?] Currently using /efi/grub. Continuing..."
-    echo "[*] Removing old GRUB config..."
-    mkdir -p /boot/grub
-    rm -rf /efi/grub
-    [[ $? == 0 ]] && echo "[+] Removed." || (echo "[!!!] Failed to remove GRUB config" && exit 1)
-    mkdir -p /boot/grub
-    "$grub_exe_mkconfig" -o /boot/grub/grub.cfg
-    [[ $? == 0 ]] && echo "[+] Migration Done!!!" || (echo "[!!!] Failed to generate GRUB config!" && exit 1)
-    echo "[?] Here's your new status:"
-    $CTLPATH status
-    echo "[+] Migration completed. Reboot recommended."
-    exit
+echo "[?] Currently using /efi/grub. Continuing..."
+echo "[*] Removing old GRUB config..."
+rm -rf /boot/grub
+mkdir -p /boot/grub
+rm -rf /efi/grub
+[[ $? == 0 ]] && echo "[+] Removed." || (echo "[!!!] Failed to remove GRUB config" && exit 1)
+"$grub_exe_mkconfig" -o /boot/grub/grub.cfg
+[[ $? == 0 ]] && echo "[+] Migration Done!!!" || (echo "[!!!] Failed to generate GRUB config!" && exit 1)
+echo "[?] Here's your new status:"
+$CTLPATH status
+echo "[+] Migration completed. Reboot recommended."
+exit
